@@ -14,7 +14,7 @@ class Blockchain:
         self.chain = []
         self.nodes = set()
 
-        # Create the genesis block
+        # 제네시스 블록을 만드는 과정 previous_hash는 1로 proof는 100으로 설정
         self.new_block(previous_hash='1', proof=100)
 
     def register_node(self, address):
@@ -25,11 +25,13 @@ class Blockchain:
         """
 
         parsed_url = urlparse(address)
+# netloc 혹은 path면 nodes에 그 상황에 맞게 추가한다.
         if parsed_url.netloc:
             self.nodes.add(parsed_url.netloc)
         elif parsed_url.path:
             # Accepts an URL without scheme like '192.168.0.5:5000'.
             self.nodes.add(parsed_url.path)
+# 틀리면 오류를 반환한다.
         else:
             raise ValueError('Invalid URL')
 
@@ -71,31 +73,33 @@ class Blockchain:
 
         :return: True if our chain was replaced, False if not
         """
-
+# 이웃을 노드들로 설정
         neighbours = self.nodes
+#new_chain은 None으로 설정
         new_chain = None
 
-        # We're only looking for chains longer than ours
+        # max_length를 일단 chain의 길이로 설정.
         max_length = len(self.chain)
 
-        # Grab and verify the chains from all the nodes in our network
+        # 노드들에게(위에서 설정함) 정보를 요청한다.
         for node in neighbours:
             response = requests.get(f'http://{node}/chain')
-
+# code 200은 괜찮은 상황. 200이면 체인의 길이와 정보를 받아온다.
             if response.status_code == 200:
                 length = response.json()['length']
                 chain = response.json()['chain']
 
-                # Check if the length is longer and the chain is valid
+                # 바로 위에서 받은 이웃들의 길이와 그 위에서 설정한 max_length를 비교한다. 만약 이웃 체인의 길이가 더 길면 교체한다.
                 if length > max_length and self.valid_chain(chain):
                     max_length = length
+# new_chain을 chain으로 설정한다. 
                     new_chain = chain
 
-        # Replace our chain if we discovered a new, valid chain longer than ours
+        # new_chain이 존재하면 내 체인을 new_chain으로 교체하고 True를 반환한다.
         if new_chain:
             self.chain = new_chain
             return True
-
+# new_chain이 없으면 false 값을 반환한다. 
         return False
 
     def new_block(self, proof, previous_hash):
@@ -167,16 +171,17 @@ self.current_transactions.append({
         :param last_block: <dict> last Block
         :return: <int>
         """
-
+# 위에서 설정한 last_block의 proof 값은 last_proof으로 설정
         last_proof = last_block['proof']
+# 마지막 블록을 해시한 것이 마지막 해시값
         last_hash = self.hash(last_block)
-
+# valid proof가 옳게될 때까지 proof 값을 더한다. 
         proof = 0
         while self.valid_proof(last_proof, proof, last_hash) is False:
             proof += 1
 
         return proof
-
+# 위에서 말한 valid proof
     @staticmethod
     def valid_proof(last_proof, proof, last_hash):
         """
@@ -191,6 +196,7 @@ self.current_transactions.append({
 
         guess = f'{last_proof}{proof}{last_hash}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
+# 첫 4개가 0이 되어야만 통과
         return guess_hash[:4] == "0000"
 
 
