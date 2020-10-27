@@ -106,7 +106,7 @@ class Blockchain:
         :param previous_hash: Hash of previous Block
         :return: New Block
         """
-
+#블록의 구조. 현재 체인의 길이에 1을 더한다. timestamp는 현재 시간, transactions는 현재의 거래들, proof는 그대로, previous hash 값은 현존하는 체인의 마지막 블록의 해시값 마지막은 chain[-1]으로 표현
         block = {
             'index': len(self.chain) + 1,
             'timestamp': time(),
@@ -120,7 +120,7 @@ class Blockchain:
 
         self.chain.append(block)
         return block
-
+#새로운 거래
     def new_transaction(self, sender, recipient, amount):
         """
         Creates a new transaction to go into the next mined Block
@@ -130,18 +130,21 @@ class Blockchain:
         :param amount: Amount
         :return: The index of the Block that will hold this transaction
         """
-        self.current_transactions.append({
+        
+# 거래의 구조는, sender, recipient, amount로 이루어짐. 거래는 생길 때마다 추가한다. (append)
+self.current_transactions.append({
             'sender': sender,
             'recipient': recipient,
             'amount': amount,
         })
-
+#last block의 index값에 1을 더한다. 
         return self.last_block['index'] + 1
 
     @property
+#가장 마지막 블록은 체인의 마지막 블록 [-1]은 가장 마지막을 의미함
     def last_block(self):
         return self.chain[-1]
-
+#블록의 해시값 구하기
     @staticmethod
     def hash(block):
         """
