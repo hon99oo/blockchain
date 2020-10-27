@@ -41,7 +41,7 @@ class Blockchain:
         :param chain: A blockchain
         :return: True if valid, False if not
         """
-
+# 일단 last block을 chain의 0 즉, 1번째로 설정한다. index 값도 1로 설정한다. 
         last_block = chain[0]
         current_index = 1
 
@@ -115,9 +115,9 @@ class Blockchain:
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
         }
 
-        # Reset the current list of transactions
+        # 새로운 블록이 만들어졌으니, 기존의 거래 내역들은 초기화한다.
         self.current_transactions = []
-
+# 체인에 블록을 추가한다. 
         self.chain.append(block)
         return block
 #새로운 거래
