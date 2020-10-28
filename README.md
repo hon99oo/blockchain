@@ -10,24 +10,76 @@
 
 VS Code나 다른 IDE 그리고 파이썬은 설치가 되어있다고, 가정을 합니다.
 
-실행 전 개발환경 설정 과정에서 2가지 패키지를 설치해야합니다. (각자의 상황에 따라 1가지 혹은 설치 없이 진행하실수도 있습니다.)  
+위의 원본 혹은 번역글에 적혀있는 것처럼, 코드가 잘 작동하는지 확인하고 결과를 눈으로 보기 위해서는 Postman을 설치하고 실행시켜야 합니다.  
+Postman 설치는 이 [링크](https://www.postman.com/downloads/)에서 하실 수 있습니다.  
 
-
+VS Code, Python, Postman 설치가 완료되었으면 이제 실행하면 됩니다. 하지만, 실행 전 개발환경 설정 과정에서 2가지를 추가로 설치해야합니다. (각자의 상황에 따라 1가지 혹은 설치 없이 진행하실수도 있습니다.)  
 
 ## Installation
 
-1. Make sure [Python 3.6+](https://www.python.org/downloads/) is installed. 
-2. Install [pipenv](https://github.com/kennethreitz/pipenv). 
+### pip 설치 
+
+pip는 파이썬 패키지 소프트웨어 설치 및 관리 시스템입니다. pip 설치가 되어있는지를 먼저 확인해야 합니다.
+아래의 명령어를 사용하여 확인합니다. 
+
+``` 
+pip --version
+```
+
+위의 명령어는 pip의 버전을 확인하는 명령어로 설치가 되어있다면, 버전이 나올 것입니다.  
+만약에 pip 설치가 되어있지 않다면, pip를 설치합니다. 
+
+#### 윈도우
+```
+curl https://bootstap.pypa.io/get-pip.py -o get-pip.py  
+python get-pip.py
+```
+
+#### 맥
+```
+sudo easy_install pip
+```
+
+#### 리눅스
+```
+sudo apt-get install python3-pip
+```
+
+이미 설치가 되어있는 분들중, 버전 업그레이드가 필요하신 분들은 아래의 명령어를 입력하시면 됩니다. 
+
+#### 윈도우
+```
+python -m pip install -upgrade pip
+```
+
+#### 맥, 리눅스
+```
+pip install -U pip
+```
+
+이제 pip 설치가 완료되었으면, 코드를 실행하면 됩니다.   
+가상 환경을 사용하는 경우와 그렇지 않은 경우가 나누어집니다.  
+
+### 가상 환경을 사용하지 않는 경우
+
+* `$python blockchain.py`
+* `$python blockchain.py -p 5001`
+* `$python blockchain.py --port 5002`
+
+
+### 가상 환경을 사용하는 경우
+
+1. Install [pipenv](https://github.com/kennethreitz/pipenv). 
 
 ```
 $ pip install pipenv 
 ```
-3. Install requirements  
+2. Install requirements  
 ```
 $ pipenv install 
 ``` 
 
-4. Run the server:
+3. Run the server:
     * `$ pipenv run python blockchain.py` 
     * `$ pipenv run python blockchain.py -p 5001`
     * `$ pipenv run python blockchain.py --port 5002`
