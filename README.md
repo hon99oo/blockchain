@@ -1,8 +1,12 @@
-# Learn Blockchains by Building One
+# 만들면서 블록체인 만들기
 
 [![Build Status](https://travis-ci.org/dvf/blockchain.svg?branch=master)](https://travis-ci.org/dvf/blockchain)
 
-This is the source code for my post on [Building a Blockchain](https://medium.com/p/117428612f46). 
+원본 글과 코드는 옆의 링크에서 볼 수 있습니다. [Building a Blockchain](https://medium.com/p/117428612f46). 
+한글 번역본은 [파이썬으로 블록체인 만들기](https://medium.com/caulink/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%9C%BC%EB%A1%9C-%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-part-1-4386dbc735e)에서 볼 수 있습니다.
+
+많은 파일들이 있지만, .py로 끝나는 파이썬 파일만 보셔도 됩니다. 
+파이썬 코드에는 코딩 경험이 없으신 분들도 이해하실 수 있게 주석을 최대한 많이 달아놓았습니다. 
 
 ## Installation
 
