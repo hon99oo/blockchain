@@ -1,4 +1,4 @@
-# 파이썬으로 블록체인 만
+# 파이썬으로 블록체인 만들기
 
 [![Build Status](https://travis-ci.org/dvf/blockchain.svg?branch=master)](https://travis-ci.org/dvf/blockchain)
 
